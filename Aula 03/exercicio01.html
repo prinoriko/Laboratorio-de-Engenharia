@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="">
+        <label for="dado">Informe a palavra que deseja adicionar na lista:  </label>
+        <input type="text" name="dado" id="dado">
+        <input type="button" value="Acrescentar" onclick="acrescentar()">
+        <ul id="lista"></ul>
+    </form>
+    <script>
+        let vet = [];
+
+        function acrescentar() {
+            let dado = document.getElementById("dado");
+            let dadoValor = dado.value;
+            if (dadoValor != "") {
+                vet.push(dadoValor);
+                dado.value = "";
+            }
+            apresentar();
+        }
+        apresentar();
+        function apresentar() {
+            vet.sort();
+            let lista = document.getElementById("lista");
+            lista.innerText = "";
+            vet.forEach(function(valor) {
+                    let item = document.createElement('li');
+                    item.innerText = valor;
+                    lista.appendChild(item);
+                });           
+        }
+    </script>
+</body>
+</html>

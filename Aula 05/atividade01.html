@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Letreiro</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <style>
+        
+    </style>
+</head>
+<body>
+    <div id="frases"></div>
+    <script type="text/babel">
+        const Letreiro = () => { // Define o componente Letreiro como uma função arrow
+        const [frase, setFrase] = React.useState(""); // Define uma variável de estado "frase" e uma função para atualizá-la "setFrase" com um valor inicial vazio
+        const texto = "Venha estudar na FATEC"; 
+
+        React.useEffect(() => { // Será executado toda vez que o componente for renderizado
+            let cont = 0; 
+            const interval = setInterval(() => { // Cria um intervalo que executará a cada 150ms
+            setFrase((fraseAntiga) => fraseAntiga + texto[cont]); // Adiciona a letra atual à frase, atualizando o estado com a função "setFrase"
+            cont++;
+            if (cont === texto.length) clearInterval(interval); // Encerra o intervalo quando todas as letras da frase foram exibidas
+            }, 150); // Define o tempo em que aparece a letra
+        }, []); //É um array vazio com dependências para que o efeito seja executado apenas uma vez
+
+        return <h1>{frase}</h1>;
+        };
+
+        ReactDOM.render(<Letreiro />, document.getElementById("frases")); 
+    </script>
+</body>
+</html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Formulário</title>
+    <style>
+        * {
+        box-sizing: border-box;
+        }
+
+        body {
+        font-family: 'Times New Roman', Times, serif;
+        margin: 0;
+        }
+        input:focus {
+        border-color: #000000;
+        }
+
+        form {
+        max-width: 600px;
+        margin: 2% auto;
+        padding: 20px;
+        border-radius: 5px;
+        }
+
+        h2 {
+        margin-left: 0%;
+        margin-right: 20%;
+        }
+
+        label {
+        display: block;
+        margin-bottom: 5px;
+        }
+        input {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        border-bottom: 2px solid #000000;
+        margin-bottom: 10px;
+        }
+        .button:hover {
+        background-color: #000000;
+        color: white;
+        }
+        .button {
+        width: 40%;
+        padding: 10px;
+        border-radius: 5px;
+        padding: 16px 32px;
+        font-size: 16px;
+        margin: 4px 2px;
+        transition: all 0.3s ease;
+        }
+        .button1 {
+        background-color: white;
+        color: black;
+        border: 2px solid #000000;
+        }
+        .button2 {
+        background-color: #000000;
+        color: white;
+        border: none;
+        transform: scale(1);
+        transition: all 0.3s ease;
+        }
+
+        .button2:hover {
+        transform: scale(1.1);
+        }
+    </style>
+</head>
+
+<body>
+    <form id="cadastros">
+        <h2>Formulário de Cadastro:</h2>
+        <br><br>
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" placeholder="Digite seu nome completo" required>
+        <br><br>
+        <label for="email">E-mail:</label>
+        <input type="email" id="email" name="email" placeholder="fulano.com" required>
+        <br><br>
+        <label for="data">Data de Nascimento:</label>
+        <input type="date" id="data" name="data" required>
+        <br><br>
+        <label for="telFixo">Telefone Fixo:</label>
+        <input type="tel" id="telFixo" name="telFixo" placeholder="(99)9999-9999" required>
+        <br><br>
+        <label for="telCelular">Telefone Celular:</label>
+        <input type="tel" id="telCelular" name="telCelular" placeholder="(99)99999-9999" required>
+        <br><br>
+        <label for="cadastro"></label>
+        <input type="radio" id="aluno" name="cadastro" value="aluno" onchange="cadastroOnChange()"> Aluno
+        <input type="radio" id="professor" name="cadastro" value="professor" onchange="cadastroOnChange()"> Professor
+        <br><br>
+        <div id="extras"></div>
+        <br><br>
+        <div>
+            <input type="submit" class="button button1" value="Enviar">
+            <input type="reset" class="button button1" value="Redefinir">
+        </div>
+    </form>
+    <script>
+        function cadastroOnChange() {
+            let cadastro = document.querySelector('input[name="cadastro"]:checked').value;
+            let extras = document.getElementById("extras");
+            extras.innerHTML = "";
+
+            if (cadastro === "professor") {
+                let atuacaoLabel = document.createElement("label");
+                atuacaoLabel.setAttribute("for", "areaAtuacao");
+                atuacaoLabel.innerHTML = "Atuação:";
+
+                let atuacaoInput = document.createElement("input");
+                atuacaoInput.setAttribute("type", "text");
+                atuacaoInput.setAttribute("id", "areaAtuação");
+                atuacaoInput.setAttribute("name", "areaAtuacao");
+                extras.appendChild(atuacaoLabel);
+                extras.appendChild(atuacaoInput);
+
+                let matriculaLabel = document.createElement("label");
+                matriculaLabel.setAttribute("for", "matricula");
+                matriculaLabel.innerHTML = "Matrícula:";
+
+                let matriculaInput = document.createElement("input");
+                matriculaInput.setAttribute("type", "text");
+                matriculaInput.setAttribute("id", "matricula");
+                matriculaInput.setAttribute("name", "matricula");
+                extras.appendChild(matriculaLabel);
+                extras.appendChild(matriculaInput);
+
+                let lattesLabel = document.createElement("label");
+                lattesLabel.setAttribute("for", "lattes");
+                lattesLabel.innerHTML = "Lattes:";
+
+                let lattesInput = document.createElement("input");
+                lattesInput.setAttribute("type", "text");
+                lattesInput.setAttribute("id", "lattes");
+                lattesInput.setAttribute("name", "lattes");
+                extras.appendChild(lattesLabel);
+                extras.appendChild(lattesInput);
+            }
+
+            else if (cadastro === "aluno") {
+                let cursoLabel = document.createElement("label");
+                cursoLabel.setAttribute("for", "curso");
+                cursoLabel.innerHTML = "Curso:";
+                let cursoInput = document.createElement("input");
+                cursoInput.setAttribute("type", "text");
+                cursoInput.setAttribute("id", "curso");
+                cursoInput.setAttribute("name", "curso");
+                extras.appendChild(cursoLabel);
+                extras.appendChild(cursoInput);
+
+                let matriculaLabel = document.createElement("label");
+                matriculaLabel.setAttribute("for", "matricula");
+                matriculaLabel.innerHTML = "Matrícula:";
+
+                let matriculaInput = document.createElement("input");
+                matriculaInput.setAttribute("type", "text");
+                matriculaInput.setAttribute("id", "matricula");
+                matriculaInput.setAttribute("name", "matricula");
+                extras.appendChild(matriculaLabel);
+                extras.appendChild(matriculaInput);
+
+            } 
+        }
+    </script>
+</body>
+</html>

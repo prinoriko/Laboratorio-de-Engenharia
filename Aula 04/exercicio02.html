@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista</title>
+    <style>
+   :root {
+        --primary-color: #007bff;
+        --secondary-color: #6c757d;
+        --success-color: #28a745;
+        --danger-color: #dc3545;
+        --warning-color: #ffc107;
+        --info-color: #17a2b8;
+        --light-color: #f8f9fa;
+        --dark-color: #343a40;
+      }
+
+      body {
+        background-color: var(--light-color);
+      }
+
+      .conteudo {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        text-align: center;
+        background-color: white;
+        box-shadow: 0 4px 8px rgba(0,0,0,.05);
+        border-radius: 5px;
+      }
+
+      h1 {
+        font-size: 2rem;
+        margin-top: 0;
+      }
+
+      form {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+
+      input[type="text"] {
+        padding: 10px;
+        border: none;
+        border-bottom: 2px solid var(--secondary-color);
+        font-size: 16px;
+        width: 80%;
+        margin-right: 10px;
+      }
+
+      input[type="submit"] {
+        border: none;
+        border-radius: 5px;
+        background-color: var(--primary-color);
+        color: white;
+        font-size: 16px;
+        padding: 10px 20px;
+        cursor: pointer;
+        transition: background-color 0.2s ease-in-out;
+      }
+
+      input[type="submit"]:hover {
+        background-color: #0069d9;
+      }
+
+      ul {
+        list-style-type: none;
+        padding: 0;
+        align-items: center;
+      }
+
+      li {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+        background-color: var(--light-color);
+        padding: 10px;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0,0,0,.05);
+      }
+
+      .delete {
+        margin-left: auto;
+        padding-right: 15px;
+        color: var(--danger-color);
+        cursor: pointer;
+        transition: color 0.2s ease-in-out;
+      }
+
+      .delete:hover {
+        color: #c82333;
+      }
+
+      button {
+        border: none;
+        background-color: transparent;
+        color: var(--secondary-color);
+        font-size: 1.5rem;
+        margin-right: 10px;
+        cursor: pointer;
+        transition: color 0.2s ease-in-out;
+      }
+
+      button:hover {
+        color: var(--primary-color);
+      }
+
+      .up {
+        transform: rotate(-90deg);
+      }
+
+      .down {
+        transform: rotate(90deg);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="conteudo">
+      <h1>LISTA</h1>
+      <form>
+        <input type="text" id="item"  placeholder="Adicione algo que deseja"/> 
+        <br><br>
+        <input type="submit" class="button button1" />
+      </form>
+      <ul id="list"></ul>
+    </div>
+
+    <script>
+     // Declaração de variáveis globais
+const todo = [];
+const form = document.querySelector('form');
+const list = document.getElementById('list');
+
+// Função para adicionar item à lista
+function addItem() {
+  const newItem = document.getElementById('item').value.trim();
+
+  if (!newItem) {
+    return;
+  }
+
+  todo.push(newItem);
+  updateList();
+  document.getElementById('item').value = '';
+}
+
+// Função para atualizar a lista na tela
+function updateList() {
+  // Limpa a lista atual
+  list.innerHTML = '';
+
+  // Adiciona cada item da lista
+  todo.forEach((item, i) => {
+    // Cria um elemento li e adiciona o item
+    const li = document.createElement('li');
+    li.textContent = item;
+
+    // Cria um botão de exclusão
+    const deleteButton = document.createElement('button');
+    deleteButton.textContent = 'X';
+    deleteButton.setAttribute('data-index', i);
+    deleteButton.addEventListener('click', deleteItem);
+    li.appendChild(deleteButton);
+
+    // Cria botões para mover o item para cima ou para baixo
+    if (i > 0) {
+      const upButton = document.createElement('button');
+      upButton.textContent = '⇧';
+      upButton.setAttribute('data-index', i);
+      upButton.addEventListener('click', moveItemUp);
+      li.appendChild(upButton);
+    }
+
+    if (i < todo.length - 1) {
+      const downButton = document.createElement('button');
+      downButton.textContent = '⇩';
+      downButton.setAttribute('data-index', i);
+      downButton.addEventListener('click', moveItemDown);
+      li.appendChild(downButton);
+    }
+
+    // Adiciona o elemento li à lista
+    list.appendChild(li);
+  });
+}
+
+// Função para deletar item da lista
+function deleteItem() {
+  const index = parseInt(this.getAttribute('data-index'));
+  todo.splice(index, 1);
+  updateList();
+}
+
+// Função para mover item para baixo na lista
+function moveItemDown() {
+  const index = parseInt(this.getAttribute('data-index'));
+  const temp = todo[index];
+  todo[index] = todo[index + 1];
+  todo[index + 1] = temp;
+  updateList();
+}
+
+// Função para mover item para cima na lista
+function moveItemUp() {
+  const index = parseInt(this.getAttribute('data-index'));
+  const temp = todo[index];
+  todo[index] = todo[index - 1];
+  todo[index - 1] = temp;
+  updateList();
+}
+
+// Adiciona evento de submit ao formulário
+form.addEventListener('submit', (event) => {
+  event.preventDefault();
+  addItem();
+});
+
+    </script>
+  </body>
+</html>
